@@ -21,25 +21,16 @@ RUN   yum -y install yum-utils && \
   groupadd -r tremoloadmin -g 433 && \
   useradd  -u 431 -r -g tremoloadmin -d /usr/local/tremolo/tremolo-service -s /sbin/nologin -c "Unison Docker image user" tremoloadmin && \
   mv /tmp/log4j.xml /usr/local/tremolo/tremolo-service/apps/proxy/WEB-INF/log4j.xml && \
-  mkdir /usr/local/tremolo/tremolo-service/stash && \
-  cp -r /usr/local/tremolo/tremolo-service/apps/proxy/auth /usr/local/tremolo/tremolo-service/stash/apps-proxy-auth && \
-  cp -r /usr/local/tremolo/tremolo-service/conf /usr/local/tremolo/tremolo-service/stash/conf && \
-  cp -r /usr/local/tremolo/tremolo-service/apps/proxy/WEB-INF /usr/local/tremolo/tremolo-service/stash/apps-proxy-WEB-INF && \
-  cp -r /usr/local/tremolo/tremolo-service/apps/tremolo-admin/WEB-INF /usr/local/tremolo/tremolo-service/stash/apps-tremolo-admin-WEB-INF && \
-  cp -r /usr/local/tremolo/tremolo-service/apps/webservices/WEB-INF /usr/local/tremolo/tremolo-service/stash/webservices-WEB-INF && \
+  mkdir /usr/local/tremolo/tremolo-service/external && \
   mv /tmp/firstStart.sh /usr/local/tremolo/tremolo-service/bin/ && \
+  mv /tmp/startUnisonInDocker.sh /usr/local/tremolo/tremolo-service/bin/ && \
+  chmod +x /usr/local/tremolo/tremolo-service/bin/startUnisonInDocker.sh && \
   chmod +x /usr/local/tremolo/tremolo-service/bin/firstStart.sh && \
   chown -R tremoloadmin:tremoloadmin /usr/local/tremolo && \
   chmod -R ugo+rw /usr/local/tremolo && \
   yum -y clean all
 
-VOLUME /usr/local/tremolo/tremolo-service/apps/proxy/auth
-VOLUME /usr/local/tremolo/tremolo-service/conf
-VOLUME /usr/local/tremolo/tremolo-service/apps/proxy/WEB-INF
-VOLUME /usr/local/tremolo/tremolo-service/apps/tremolo-admin/WEB-INF
-VOLUME /usr/local/tremolo/tremolo-service/apps/webservices/WEB-INF
-VOLUME /usr/local/tremolo/tremolo-service/ext-lib
-VOLUME /usr/local/tremolo/tremolo-service/logs
+VOLUME /usr/local/tremolo/tremolo-service/external
 
 
 USER 431

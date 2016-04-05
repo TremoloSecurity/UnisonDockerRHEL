@@ -1,24 +1,26 @@
 #!/bin/bash
 
-if [ ! "$(ls -A /usr/local/tremolo/tremolo-service/apps/proxy/auth)" ] ; then
-  mv /usr/local/tremolo/tremolo-service/stash/apps-proxy-auth/* /usr/local/tremolo/tremolo-service/apps/proxy/auth/
+if [ ! -d "/usr/local/tremolo/tremolo-service/external/apps" ] ; then
+  echo "Copying apps"
+  cp -r /usr/local/tremolo/tremolo-service/apps /usr/local/tremolo/tremolo-service/external/
 fi
 
-if [ ! "$(ls -A /usr/local/tremolo/tremolo-service/conf)" ] ; then
-  mv /usr/local/tremolo/tremolo-service/stash/conf/* /usr/local/tremolo/tremolo-service/conf/
+if [ ! -d "/usr/local/tremolo/tremolo-service/external/conf" ] ; then
+  echo "Copying config"
+  cp -r /usr/local/tremolo/tremolo-service/conf /usr/local/tremolo/tremolo-service/external/
 fi
 
-if [ ! "$(ls -A /usr/local/tremolo/tremolo-service/apps/proxy/WEB-INF)" ] ; then
-  mv /usr/local/tremolo/tremolo-service/stash/apps-proxy-WEB-INF/* /usr/local/tremolo/tremolo-service/apps/proxy/WEB-INF/
+if [ ! -d "/usr/local/tremolo/tremolo-service/external/logs" ] ; then
+  echo "Creating logs dir"
+  mkdir /usr/local/tremolo/tremolo-service/external/logs
 fi
 
-if [ ! "$(ls -A /usr/local/tremolo/tremolo-service/apps/tremolo-admin/WEB-INF)" ] ; then
-  mv /usr/local/tremolo/tremolo-service/stash/apps-tremolo-admin-WEB-INF/* /usr/local/tremolo/tremolo-service/apps/tremolo-admin/WEB-INF/
+if [ ! -d "/usr/local/tremolo/tremolo-service/external/ext-lib" ] ; then
+  echo "Creating logs dir"
+  mkdir /usr/local/tremolo/tremolo-service/external/ext-lib
 fi
 
-if [ ! "$(ls -A /usr/local/tremolo/tremolo-service/apps/webservices/WEB-INF)" ] ; then
-  mv /usr/local/tremolo/tremolo-service/stash/webservices-WEB-INF/* /usr/local/tremolo/tremolo-service/apps/webservices/WEB-INF/
-fi
 
-rm -rf /usr/local/tremolo/tremolo-service/stash
+
+
 exec /usr/local/tremolo/tremolo-service/bin/startUnisonInDocker.sh
