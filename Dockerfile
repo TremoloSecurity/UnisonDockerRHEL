@@ -12,6 +12,7 @@ ENV UNISON_VERSION 1.0.6
 
 USER root
 ADD scripts/firstStart.sh /tmp/firstStart.sh
+ADD scripts/startUnisonInDocker.sh /tmp/startUnisonInDocker.sh
 ADD conf/log4j.xml /tmp/log4j.xml
 
 RUN   yum -y install yum-utils && \
