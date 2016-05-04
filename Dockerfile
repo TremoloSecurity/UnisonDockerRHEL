@@ -7,6 +7,7 @@ EXPOSE 8443
 EXPOSE 9093
 
 ENV UNISON_VERSION 1.0.6
+ENV MYSQL_JDBC_VERSION 5.1.38
 
 
 
@@ -22,6 +23,9 @@ RUN   yum -y install yum-utils && \
   groupadd -r tremoloadmin -g 433 && \
   useradd  -u 431 -r -g tremoloadmin -d /usr/local/tremolo/tremolo-service -s /sbin/nologin -c "Unison Docker image user" tremoloadmin && \
   mv /tmp/log4j.xml /usr/local/tremolo/tremolo-service/apps/proxy/WEB-INF/log4j.xml && \
+  mkdir /tmp/drivers && \
+  cd /tmp/drivers && \
+  curl -L -O http://search.maven.org/remotecontent?filepath=mysql/mysql-connector-java/${MYSQL_JDBC_VERSION}/mysql-connector-java-${MYSQL_JDBC_VERSION}.jar && \
   mkdir /usr/local/tremolo/tremolo-service/external && \
   mv /tmp/firstStart.sh /usr/local/tremolo/tremolo-service/bin/ && \
   mv /tmp/startUnisonInDocker.sh /usr/local/tremolo/tremolo-service/bin/ && \
@@ -29,6 +33,7 @@ RUN   yum -y install yum-utils && \
   chmod +x /usr/local/tremolo/tremolo-service/bin/firstStart.sh && \
   chown -R tremoloadmin:tremoloadmin /usr/local/tremolo && \
   chmod -R ugo+rw /usr/local/tremolo && \
+  chmod -R ugo+rw /tmp/drivers && \
   yum -y clean all
 
 VOLUME /usr/local/tremolo/tremolo-service/external
