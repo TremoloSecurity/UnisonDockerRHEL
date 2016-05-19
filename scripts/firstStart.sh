@@ -18,6 +18,8 @@ fi
 if [ ! -d "/usr/local/tremolo/tremolo-service/external/ext-lib" ] ; then
   echo "Creating logs dir"
   mkdir /usr/local/tremolo/tremolo-service/external/ext-lib
+  mv /tmp/drivers/*.jar /usr/local/tremolo/tremolo-service/external/ext-lib
+  rm -rf /tmp/drivers
 fi
 
 
