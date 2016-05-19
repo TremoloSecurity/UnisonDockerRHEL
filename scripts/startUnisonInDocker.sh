@@ -25,7 +25,7 @@ TREMOLO_CMD="$JAVA_CMD -Dorg.eclipse.jetty.server.Request.maxFormContentSize=-1 
 
 echo "Starting Xvfb..."
 
-rf -f /tmp/.X0-lock
+rm -f /tmp/.X0-lock
 
 #Start Xvfb
 /usr/bin/Xvfb :0.0 >& /dev/null &
