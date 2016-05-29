@@ -1,6 +1,16 @@
 FROM rhel7
 
 MAINTAINER Tremolo Security, Inc. - Docker <docker@tremolosecurity.com>
+
+LABEL Name Unison
+LABEL Version 1.0.6
+LABEL Release 2016-05-04
+LABEL Vendor Tremolo Security, Inc.
+LABEL RUN /usr/bin/docker run -d registry-tremolosecurity/unison-rhel:1.0.6
+
+
+
+
 EXPOSE 9090
 EXPOSE 8080
 EXPOSE 8443
