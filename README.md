@@ -12,8 +12,10 @@ Tremolo Security's Unison combines the identity management functions most needed
 
 ## Available Tags
 
-* latest (1.0.6)
-* 1.0.6
+* latest (registry-tremolosecurity.rhcloud.com/rhel7/unison)
+* registry-tremolosecurity.rhcloud.com/rhel7/unison:1.0.7
+* registry-tremolosecurity.rhcloud.com/rhel7/unison:1.0.6
+
 
 ## Deployment
 
@@ -26,3 +28,25 @@ If your docker servers are static and can port forward from the host to Unison y
 ## Logging
 
 The standard for Docker images is to send all output to standard out.  The default log4j.xml file is updated to push all output to standard out instead of the different log files.
+
+## Running Unison in a Container
+
+### Volumes
+A single volume needs to be mapped to /usr/local/tremolo/tremolo-service/external.  On startup, Unison will copy the applications, configurations and external libraries to this volume.  Its also where the markers used in a shared filesystem clustering configuration are stored.
+
+### Ports
+The following ports are available:
+* 9090 - Administrative Portal Port
+* 8080 - Web Unencrypted
+* 8443 - Web Encrypted
+* 10983 - LDAP Unencrypted
+* 10636 - LDAP Secure
+* 9093 - Admin web services
+
+NOTE that these ports are defaults and can be configured inside of the Unison admin interface
+
+### Example Docker Command
+```
+docker run -d -p 9090:9090 -p 389:10983 -p 636:10636 -p 80:8080 -p 443:8443 --name unison -v /var/lib/docker-volumes/unison:/usr/local/tremolo/tremolo-service/external:Z  registry-tremolosecurity.rhcloud.com/rhel7/unison:1.0.7
+```
+Once the container is running, it can be connected to with https://docker.host:9090 to configure the license and initial security information.

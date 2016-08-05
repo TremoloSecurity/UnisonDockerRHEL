@@ -4,7 +4,7 @@ MAINTAINER Tremolo Security, Inc. - Docker <docker@tremolosecurity.com>
 
 LABEL Name Unison
 LABEL Version 1.0.7
-LABEL Release 2016-06-08
+LABEL Release 2016-08-04
 LABEL Vendor Tremolo Security, Inc.
 LABEL RUN /usr/bin/docker run -d registry-tremolosecurity/unison-rhel:1.0.7
 
@@ -18,7 +18,7 @@ EXPOSE 9093
 
 ENV UNISON_VERSION 1.0.7
 ENV MYSQL_JDBC_VERSION 5.1.38
-
+ENV PGSQL_JDBC_VERSION 9.4.1209.jre7
 
 
 USER root
@@ -27,8 +27,7 @@ ADD scripts/startUnisonInDocker.sh /tmp/startUnisonInDocker.sh
 ADD conf/log4j2.xml /tmp/log4j2.xml
 
 RUN   yum -y install yum-utils && \
-  yum-config-manager --enable rhel-7-server-optional-rpms rhel-7-server-extras-rpms && \
-  yum -y install wget which;cd /etc/yum.repos.d;wget https://www.tremolosecurity.com/docs/tremolosecurity-docs/configs/tremolosecurity-beta.repo;yum -y install unison-$UNISON_VERSION && \
+  yum -y install wget which;cd /etc/yum.repos.d;wget https://www.tremolosecurity.com/docs/tremolosecurity-docs/configs/tremolosecurity-1.0.7.repo;yum -y install unison-$UNISON_VERSION && \
   userdel tremoloadmin && \
   groupadd -r tremoloadmin -g 433 && \
   useradd  -u 431 -r -g tremoloadmin -d /usr/local/tremolo/tremolo-service -s /sbin/nologin -c "Unison Docker image user" tremoloadmin && \
@@ -36,6 +35,7 @@ RUN   yum -y install yum-utils && \
   mkdir /tmp/drivers && \
   cd /tmp/drivers && \
   curl -L -O http://search.maven.org/remotecontent?filepath=mysql/mysql-connector-java/${MYSQL_JDBC_VERSION}/mysql-connector-java-${MYSQL_JDBC_VERSION}.jar && \
+  curl -L -O http://search.maven.org/remotecontent?filepath=org/postgresql/postgresql/${PGSQL_JDBC_VERSION}/postgresql-${PGSQL_JDBC_VERSION}.jar && \
   mkdir /usr/local/tremolo/tremolo-service/external && \
   mv /tmp/firstStart.sh /usr/local/tremolo/tremolo-service/bin/ && \
   mv /tmp/startUnisonInDocker.sh /usr/local/tremolo/tremolo-service/bin/ && \

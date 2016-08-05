@@ -1,5 +1,7 @@
 #!/bin/bash
 
+
+
 if [ ! -d "/usr/local/tremolo/tremolo-service/external/apps" ] ; then
   echo "Copying apps"
   cp -r /usr/local/tremolo/tremolo-service/apps /usr/local/tremolo/tremolo-service/external/
@@ -22,7 +24,9 @@ if [ ! -d "/usr/local/tremolo/tremolo-service/external/ext-lib" ] ; then
   rm -rf /tmp/drivers
 fi
 
-
+#make sure we are updating the admin pages
+rm -rf /usr/local/tremolo/tremolo-service/apps/tremolo-admin/WEB-INF
+cp -rf /usr/local/tremolo/tremolo-service/apps/tremolo-admin/* /usr/local/tremolo/tremolo-service/external/apps/tremolo-admin/
 
 
 exec /usr/local/tremolo/tremolo-service/bin/startUnisonInDocker.sh
