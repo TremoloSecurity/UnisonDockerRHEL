@@ -3,10 +3,10 @@ FROM rhel7
 MAINTAINER Tremolo Security, Inc. - Docker <docker@tremolosecurity.com>
 
 LABEL Name Unison
-LABEL Version 1.0.6
-LABEL Release 2016-05-04
+LABEL Version 1.0.8
+LABEL Release 2017-02-22
 LABEL Vendor Tremolo Security, Inc.
-LABEL RUN /usr/bin/docker run -d registry-tremolosecurity/unison-rhel:1.0.6
+LABEL RUN /usr/bin/docker run -d registry-tremolosecurity/unison-rhel:1.0.8
 
 
 
@@ -16,9 +16,9 @@ EXPOSE 8080
 EXPOSE 8443
 EXPOSE 9093
 
-ENV UNISON_VERSION 1.0.6
+ENV UNISON_VERSION 1.0.8
 ENV MYSQL_JDBC_VERSION 5.1.38
-
+ENV PGSQL_JDBC_VERSION 9.4.1209.jre7
 
 
 USER root
@@ -35,7 +35,8 @@ RUN   yum -y install yum-utils && \
   mv /tmp/log4j.xml /usr/local/tremolo/tremolo-service/apps/proxy/WEB-INF/log4j.xml && \
   mkdir /tmp/drivers && \
   cd /tmp/drivers && \
-  curl -L -O http://search.maven.org/remotecontent?filepath=mysql/mysql-connector-java/${MYSQL_JDBC_VERSION}/mysql-connector-java-${MYSQL_JDBC_VERSION}.jar && \
+  curl -L -O https://search.maven.org/remotecontent?filepath=mysql/mysql-connector-java/${MYSQL_JDBC_VERSION}/mysql-connector-java-${MYSQL_JDBC_VERSION}.jar && \
+  curl -L -O https://search.maven.org/remotecontent?filepath=org/postgresql/postgresql/${PGSQL_JDBC_VERSION}/postgresql-${PGSQL_JDBC_VERSION}.jar && \
   mkdir /usr/local/tremolo/tremolo-service/external && \
   mv /tmp/firstStart.sh /usr/local/tremolo/tremolo-service/bin/ && \
   mv /tmp/startUnisonInDocker.sh /usr/local/tremolo/tremolo-service/bin/ && \
@@ -53,5 +54,6 @@ USER 431
 WORKDIR /usr/local/tremolo/tremolo-service
 ENV JAVA_OPTS -XX:+UseParallelGC  -Djava.security.egd=file:/dev/./urandom
 
+HEALTHCHECK CMD curl --insecure -v https://localhost:9090/ 2>&1 | grep subject  || exit 1
 
 CMD /usr/local/tremolo/tremolo-service/bin/firstStart.sh
