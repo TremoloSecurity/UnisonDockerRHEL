@@ -26,9 +26,11 @@ ADD scripts/firstStart.sh /tmp/firstStart.sh
 ADD scripts/startUnisonInDocker.sh /tmp/startUnisonInDocker.sh
 ADD conf/log4j.xml /tmp/log4j.xml
 
-RUN   yum -y install yum-utils && \
-  yum-config-manager --enable rhel-7-server-optional-rpms rhel-7-server-extras-rpms && \
-  yum -y install wget which;cd /etc/yum.repos.d;wget https://www.tremolosecurity.com/docs/tremolosecurity-docs/configs/tremolosecurity.repo;yum -y install unison-$UNISON_VERSION && \
+RUN   yum -y install wget which && \
+  cd /tmp && \
+  wget https://www.tremolosecurity.com/nexus/service/local/repositories/rpms-${UNISON_VERSION}/content/tremolosecurity-unison/ts-unison/${UNISON_VERSION}/ts-unison-${UNISON_VERSION}.rpm && \
+  yum localinstall ./ts-unison-${UNISON_VERSION}.rpm && \
+  rm -rf ./ts-unison-${UNISON_VERSION}.rpm &&\
   userdel tremoloadmin && \
   groupadd -r tremoloadmin -g 433 && \
   useradd  -u 431 -r -g tremoloadmin -d /usr/local/tremolo/tremolo-service -s /sbin/nologin -c "Unison Docker image user" tremoloadmin && \
