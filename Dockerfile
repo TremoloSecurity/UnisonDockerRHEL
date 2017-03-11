@@ -29,7 +29,7 @@ ADD conf/log4j.xml /tmp/log4j.xml
 RUN   yum -y install wget which && \
   cd /tmp && \
   wget https://www.tremolosecurity.com/nexus/service/local/repositories/rpms-${UNISON_VERSION}/content/tremolosecurity-unison/ts-unison/${UNISON_VERSION}/ts-unison-${UNISON_VERSION}.rpm && \
-  yum localinstall ./ts-unison-${UNISON_VERSION}.rpm && \
+  yum -y localinstall ./ts-unison-${UNISON_VERSION}.rpm && \
   rm -rf ./ts-unison-${UNISON_VERSION}.rpm &&\
   userdel tremoloadmin && \
   groupadd -r tremoloadmin -g 433 && \
