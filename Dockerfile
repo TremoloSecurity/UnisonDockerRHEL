@@ -26,14 +26,13 @@ ADD scripts/firstStart.sh /tmp/firstStart.sh
 ADD scripts/startUnisonInDocker.sh /tmp/startUnisonInDocker.sh
 ADD conf/log4j.xml /tmp/log4j.xml
 
-RUN   yum -y install wget which && \
+RUN   yum -y install wget which java-1.8.0-openjdk-devel && \
   cd /tmp && \
-  wget https://www.tremolosecurity.com/nexus/service/local/repositories/rpms-${UNISON_VERSION}/content/tremolosecurity-unison/ts-unison/${UNISON_VERSION}/ts-unison-${UNISON_VERSION}.rpm && \
-  yum -y localinstall ./ts-unison-${UNISON_VERSION}.rpm && \
-  rm -rf ./ts-unison-${UNISON_VERSION}.rpm &&\
-  userdel tremoloadmin && \
+  wget https://www.tremolosecurity.com/dwn/tremolosecurity-downloads/unison/${UNISON_VERSION}/tremolo-service-${UNISON_VERSION}.tar.gz && \
   groupadd -r tremoloadmin -g 433 && \
   useradd  -u 431 -r -g tremoloadmin -d /usr/local/tremolo/tremolo-service -s /sbin/nologin -c "Unison Docker image user" tremoloadmin && \
+  mkdir -p /usr/local/tremolo/tremolo-service && \
+  mv /tmp/tremolo-service-${UNISON_VERSION}/* /usr/local/tremolo/tremolo-service && \
   mv /tmp/log4j.xml /usr/local/tremolo/tremolo-service/apps/proxy/WEB-INF/log4j.xml && \
   mkdir /tmp/drivers && \
   cd /tmp/drivers && \
