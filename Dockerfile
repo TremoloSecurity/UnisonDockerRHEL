@@ -29,6 +29,7 @@ ADD conf/log4j.xml /tmp/log4j.xml
 RUN   yum -y install wget which java-1.8.0-openjdk-devel && \
   cd /tmp && \
   wget https://www.tremolosecurity.com/dwn/tremolosecurity-downloads/unison/${UNISON_VERSION}/tremolo-service-${UNISON_VERSION}.tar.gz && \
+  tar -xvzf tremolo-service-${UNISON_VERSION}.tar.gz && \
   groupadd -r tremoloadmin -g 433 && \
   useradd  -u 431 -r -g tremoloadmin -d /usr/local/tremolo/tremolo-service -s /sbin/nologin -c "Unison Docker image user" tremoloadmin && \
   mkdir -p /usr/local/tremolo/tremolo-service && \
