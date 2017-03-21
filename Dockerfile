@@ -34,6 +34,7 @@ RUN   yum -y install wget which java-1.8.0-openjdk-devel && \
   useradd  -u 431 -r -g tremoloadmin -d /usr/local/tremolo/tremolo-service -s /sbin/nologin -c "Unison Docker image user" tremoloadmin && \
   mkdir -p /usr/local/tremolo/tremolo-service && \
   mv /tmp/tremolo-service-${UNISON_VERSION}/* /usr/local/tremolo/tremolo-service && \
+  rm -rf /tmp/tremolo-service-* && \
   mv /tmp/log4j.xml /usr/local/tremolo/tremolo-service/apps/proxy/WEB-INF/log4j.xml && \
   mkdir /tmp/drivers && \
   cd /tmp/drivers && \
