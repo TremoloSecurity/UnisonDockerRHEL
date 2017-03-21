@@ -19,7 +19,7 @@ if [ ! $JAVA_CMD ]; then
   exit 1
 fi
 
-export CLASSPATH=$CLASSPATH:$TREMOLO_ROOT/libs/*:$TREMOLO_ROOT/jars/*:$TREMOLO_HOME/ext-lib/*:$TREMOLO_QUARTZ_DIR
+export CLASSPATH=$CLASSPATH:$TREMOLO_ROOT/libs/*:$TREMOLO_ROOT/jars/*:$TREMOLO_HOME/ext-lib/*:$TREMOLO_QUARTZ_DIR:$TREMOLO_ROOT/conf
 
 TREMOLO_CMD="$JAVA_CMD -Dorg.eclipse.jetty.server.Request.maxFormContentSize=-1 -Dcom.tremolosecurity.openunison.activemqdir=$TREMOLO_ACTIVEMQ -Dcom.tremolosecurity.openunison.quartzdir=$TREMOLO_QUARTZ_DIR $JAVA_OPTS -server com.tremolosecurity.server.Server"
 
