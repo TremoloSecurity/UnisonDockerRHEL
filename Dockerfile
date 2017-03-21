@@ -24,7 +24,7 @@ ENV PGSQL_JDBC_VERSION 9.4.1209.jre7
 USER root
 ADD scripts/firstStart.sh /tmp/firstStart.sh
 ADD scripts/startUnisonInDocker.sh /tmp/startUnisonInDocker.sh
-ADD conf/log4j.xml /tmp/log4j.xml
+ADD conf/log4j2.xml /tmp/log4j2.xml
 
 RUN   yum -y install wget which java-1.8.0-openjdk-devel && \
   cd /tmp && \
@@ -35,7 +35,8 @@ RUN   yum -y install wget which java-1.8.0-openjdk-devel && \
   mkdir -p /usr/local/tremolo/tremolo-service && \
   mv /tmp/tremolo-service-${UNISON_VERSION}/* /usr/local/tremolo/tremolo-service && \
   rm -rf /tmp/tremolo-service-* && \
-  mv /tmp/log4j.xml /usr/local/tremolo/tremolo-service/apps/proxy/WEB-INF/log4j.xml && \
+  rm /usr/local/tremolo/tremolo-service/conf/log4j2.xml && \
+  mv /tmp/log4j2.xml /usr/local/tremolo/tremolo-service/conf/ && \
   mkdir /tmp/drivers && \
   cd /tmp/drivers && \
   curl -L -O https://search.maven.org/remotecontent?filepath=mysql/mysql-connector-java/${MYSQL_JDBC_VERSION}/mysql-connector-java-${MYSQL_JDBC_VERSION}.jar && \
