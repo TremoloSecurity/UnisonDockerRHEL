@@ -2,11 +2,22 @@ FROM rhel7
 
 MAINTAINER Tremolo Security, Inc. - Docker <docker@tremolosecurity.com>
 
-LABEL Name Unison
-LABEL Version 1.0.8
-LABEL Release 2017-02-22
-LABEL Vendor Tremolo Security, Inc.
-LABEL RUN /usr/bin/docker run -d registry-tremolosecurity/unison-rhel:1.0.8
+
+
+LABEL name="Unison" \
+      vendor="Tremolo Security, Inc." \
+      version="1.0.8" \
+      release="2017022101" \
+### Recommended labels below
+      build-date="2017-02-21T00:00:00.000000Z" \
+      url="https://www.tremolosecurity.com/unison/" \
+      summary="Cloud Native Identity Management" \
+      description="Unison is an identity management platforms that can provide solutions for applications and infrastructure. Services include user provisioning, web access management & SSO, LDAP virtual directory and a user self service portal." \
+      run='docker run -tdi --name ${NAME} -v /path/to/unison:/usr/local/tremolo/tremolo-service/external:Z ${IMAGE}' \
+      io.k8s.description="Cloud Native Identity Management" \
+      io.k8s.display-name="Unison" \
+      io.openshift.expose-services="8080:http,8443:https,10983:ldap,10636:ldaps,9090:https-admin" \
+      io.openshift.tags="identity management,sso,ldap,user provisioning,devops,saml,openid connect"
 
 
 
@@ -14,7 +25,7 @@ LABEL RUN /usr/bin/docker run -d registry-tremolosecurity/unison-rhel:1.0.8
 EXPOSE 9090
 EXPOSE 8080
 EXPOSE 8443
-EXPOSE 9093
+
 
 ENV UNISON_VERSION 1.0.8
 ENV MYSQL_JDBC_VERSION 5.1.38
@@ -25,8 +36,13 @@ USER root
 ADD scripts/firstStart.sh /tmp/firstStart.sh
 ADD scripts/startUnisonInDocker.sh /tmp/startUnisonInDocker.sh
 ADD conf/log4j2.xml /tmp/log4j2.xml
+ADD metadata/help.md /tmp/help.md
 
-RUN   yum -y install wget which java-1.8.0-openjdk-devel && \
+RUN   yum clean all && yum-config-manager --disable \* &> /dev/null && \
+### Add necessary Red Hat repos here
+    yum-config-manager --enable rhel-7-server-rpms,rhel-7-server-optional-rpms &> /dev/null && \
+    yum -y update-minimal --security --sec-severity=Important --sec-severity=Critical --setopt=tsflags=nodocs && \
+    yum -y install --setopt=tsflags=nodocs golang-github-cpuguy83-go-md2man wget which java-1.8.0-openjdk-devel && \
   cd /tmp && \
   wget https://www.tremolosecurity.com/dwn/tremolosecurity-downloads/unison/${UNISON_VERSION}/tremolo-service-${UNISON_VERSION}.tar.gz && \
   tar -xvzf tremolo-service-${UNISON_VERSION}.tar.gz && \
@@ -49,6 +65,7 @@ RUN   yum -y install wget which java-1.8.0-openjdk-devel && \
   chown -R tremoloadmin:tremoloadmin /usr/local/tremolo && \
   chmod -R ugo+rw /usr/local/tremolo && \
   chmod -R ugo+rw /tmp/drivers && \
+  go-md2man -in /tmp/help.md -out /help.1 && yum -y remove golang-github-cpuguy83-go-md2man && \
   yum -y clean all
 
 VOLUME /usr/local/tremolo/tremolo-service/external
