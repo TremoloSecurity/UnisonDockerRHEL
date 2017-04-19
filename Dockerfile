@@ -6,7 +6,7 @@ MAINTAINER Tremolo Security, Inc. - Docker <docker@tremolosecurity.com>
 
 LABEL name="Unison" \
       vendor="Tremolo Security, Inc." \
-      version="1.0.8" \
+      version="1.0.9" \
       release="2017022101" \
 ### Recommended labels below
       build-date="2017-02-21T00:00:00.000000Z" \
