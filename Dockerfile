@@ -1,4 +1,4 @@
-FROM rhel7
+FROM rhel7/rhel
 
 MAINTAINER Tremolo Security, Inc. - Docker <docker@tremolosecurity.com>
 
