@@ -7,9 +7,9 @@ MAINTAINER Tremolo Security, Inc. - Docker <docker@tremolosecurity.com>
 LABEL name="Unison" \
       vendor="Tremolo Security, Inc." \
       version="1.0.10" \
-      release="2017022101" \
+      release="2017042901" \
 ### Recommended labels below
-      build-date="2017-02-21T00:00:00.000000Z" \
+      build-date="2017-04-29T00:00:00.000000Z" \
       url="https://www.tremolosecurity.com/unison/" \
       summary="Cloud Native Identity Management" \
       description="Unison is an identity management platforms that can provide solutions for applications and infrastructure. Services include user provisioning, web access management & SSO, LDAP virtual directory and a user self service portal." \
