@@ -1,4 +1,4 @@
-FROM rhel7/rhel
+FROM registry.access.redhat.com/rhel7
 
 MAINTAINER Tremolo Security, Inc. - Docker <docker@tremolosecurity.com>
 
