@@ -37,6 +37,8 @@ ADD scripts/startUnisonInDocker.sh /tmp/startUnisonInDocker.sh
 ADD conf/log4j2.xml /tmp/log4j2.xml
 ADD metadata/help.md /tmp/help.md
 
+COPY licenses /licenses
+
 RUN   yum clean all && yum-config-manager --disable \* &> /dev/null && \
 ### Add necessary Red Hat repos here
     yum-config-manager --enable rhel-7-server-rpms,rhel-7-server-optional-rpms &> /dev/null && \
@@ -66,6 +68,8 @@ RUN   yum clean all && yum-config-manager --disable \* &> /dev/null && \
   chmod -R ugo+rw /tmp/drivers && \
   go-md2man -in /tmp/help.md -out /help.1 && yum -y remove golang-github-cpuguy83-go-md2man && \
   yum -y clean all
+
+
 
 VOLUME /usr/local/tremolo/tremolo-service/external
 
