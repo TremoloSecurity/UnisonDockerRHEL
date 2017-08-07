@@ -39,13 +39,13 @@ ADD metadata/help.md /tmp/help.md
 
 COPY licenses /licenses
 
-RUN   REPOLIST=rhel-7-server-rpms,rhel-7-server-optional-rpms && \
+RUN   REPOLIST="rhel-7-server-rpms,rhel-7-server-optional-rpms" && \
       INSTALL_PKGS="golang-github-cpuguy83-go-md2man wget which java-1.8.0-openjdk-devel" && \
       yum clean all && yum-config-manager --disable \* &> /dev/null && \
       ### Add necessary Red Hat repos here
       yum -y update-minimal --disablerepo "*" --enablerepo rhel-7-server-rpms --setopt=tsflags=nodocs \
       --security --sec-severity=Important --sec-severity=Critical && \
-      yum -y install --disablerepo "*" --enablerepo ${REPOLIST} --setopt=tsflags=nodocs ${INSTALL_PKGS} &&
+      yum -y install --disablerepo "*" --enablerepo ${REPOLIST} --setopt=tsflags=nodocs ${INSTALL_PKGS} && \
       cd /tmp && \
       wget https://www.tremolosecurity.com/dwn/tremolosecurity-downloads/unison/${UNISON_VERSION}/tremolo-service-${UNISON_VERSION}.tar.gz && \
       tar -xvzf tremolo-service-${UNISON_VERSION}.tar.gz && \
