@@ -68,8 +68,9 @@ RUN   REPOLIST="rhel-7-server-rpms,rhel-7-server-optional-rpms" && \
       chown -R tremoloadmin:tremoloadmin /usr/local/tremolo && \
       chmod -R ugo+rw /usr/local/tremolo && \
       chmod -R ugo+rw /tmp/drivers && \
-      go-md2man -in /tmp/help.md -out /help.1 && yum -y remove golang-github-cpuguy83-go-md2man && \
-      yum -y clean all
+      go-md2man -in /tmp/help.md -out /help.1 && \
+      yum -y remove golang-github-cpuguy83-go-md2man && \
+      rm -rf /var/cache/yum
 
 
 
