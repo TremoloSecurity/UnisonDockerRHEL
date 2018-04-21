@@ -6,7 +6,7 @@ MAINTAINER Tremolo Security, Inc. - Docker <docker@tremolosecurity.com>
 
 LABEL name="Unison" \
       vendor="Tremolo Security, Inc." \
-      version="1.0.13" \
+      version="1.0.13.2" \
       release="2018041201" \
 ### Recommended labels below
       url="https://www.tremolosecurity.com/unison/" \
@@ -26,7 +26,7 @@ EXPOSE 8080
 EXPOSE 8443
 
 
-ENV UNISON_VERSION 1.0.12
+ENV UNISON_VERSION 1.0.13
 ENV MYSQL_JDBC_VERSION 5.1.38
 ENV PGSQL_JDBC_VERSION 9.4.1209.jre7
 
