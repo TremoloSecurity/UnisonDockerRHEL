@@ -6,8 +6,8 @@ MAINTAINER Tremolo Security, Inc. - Docker <docker@tremolosecurity.com>
 
 LABEL name="Unison" \
       vendor="Tremolo Security, Inc." \
-      version="1.0.11" \
-      release="2017061801" \
+      version="1.0.14" \
+      release="2018050401" \
 ### Recommended labels below
       url="https://www.tremolosecurity.com/unison/" \
       summary="Cloud Native Identity Management" \
@@ -26,7 +26,7 @@ EXPOSE 8080
 EXPOSE 8443
 
 
-ENV UNISON_VERSION 1.0.11
+ENV UNISON_VERSION 1.0.14
 ENV MYSQL_JDBC_VERSION 5.1.38
 ENV PGSQL_JDBC_VERSION 9.4.1209.jre7
 
