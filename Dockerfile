@@ -6,8 +6,8 @@ MAINTAINER Tremolo Security, Inc. - Docker <docker@tremolosecurity.com>
 
 LABEL name="Unison" \
       vendor="Tremolo Security, Inc." \
-      version="1.0.15" \
-      release="20180700601" \
+      version="1.0.16" \
+      release="20190302601" \
 ### Recommended labels below
       url="https://www.tremolosecurity.com/unison/" \
       summary="Cloud Native Identity Management" \
