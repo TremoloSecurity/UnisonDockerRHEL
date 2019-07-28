@@ -1,4 +1,4 @@
-FROM registry.access.redhat.com/rhel7
+FROM registry.access.redhat.com/rhel8
 
 MAINTAINER Tremolo Security, Inc. - Docker <docker@tremolosecurity.com>
 
@@ -26,7 +26,7 @@ EXPOSE 8080
 EXPOSE 8443
 
 
-ENV UNISON_VERSION 1.0.15
+ENV UNISON_VERSION 1.0.16
 ENV MYSQL_JDBC_VERSION 5.1.38
 ENV PGSQL_JDBC_VERSION 9.4.1209.jre7
 
